@@ -21,9 +21,9 @@ app.set('view engine', 'handlebars');
 
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
+  host: 'wftuqljwesiffol6.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+  user: ' fx7rqepd7utkh02y',
+  password: 'p428ack4h76rrgds',
   database: 'quotes_db'
 });
 
