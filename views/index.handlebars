@@ -1,37 +1,56 @@
-<h1>Quotes App</h1>
+<h1>Cats!</h1>
 
-<p>Manage quotes with this app</p>
-<!-- this is index.handlebars -->
+<h2>Cats that are not sleepy!</h2>
+
 <ul>
-  {{#each quotes}}
-    <li>
-      <p><span class="label">ID:</span> {{this.id}}</p>
-      <p><span class="label">Quote:</span> {{this.quote}}</p>
-      <p><span class="label">Author:</span> {{this.author}}</p>
+  {{#each cats}}
+    {{#unless this.sleepy}}
+      <li>
+        {{this.name}}
 
-      <form action="/delete?_method=DELETE" method="POST">
-        <input type="hidden" name="id" value="{{this.id}}">
-        <button type="submit">Delete</button>
-      </form>
+        <form action="cats/update/{{this.id}}?_method=PUT" method="POST">
+          <input type="hidden" name="sleepy" value="true">
+          <button type="submit">SLEEP TIME!</button>
+        </form>
 
-      <a href="/quotes/{{this.id}}">Update this quote</a>
-    </li>
+        {{> cats/delete-cat}}
+      </li>
+    {{/unless}}
   {{/each}}
 </ul>
 
-<h2>Add a Quote</h2>
+<h2>Cats that are sleepy!</h2>
 
-<form class="create-form" action="/create" method="POST">
+<ul>
+  {{#each cats}}
+    {{#if this.sleepy}}
+      <li>
+        {{this.name}}
+
+        <form action="cats/update/{{this.id}}?_method=PUT" method="POST">
+          <input type="hidden" name="sleepy" value="false">
+          <button type="submit">WAKE UP!</button>
+        </form>
+
+        {{> cats/delete-cat}}
+      </li>
+    {{/if}}
+  {{/each}}
+</ul>
+
+<h2>Add a Cat</h2>
+<form class="create-update-form" action="cats/create" method="POST">
 
   <div class="form-group">
-    <label for="auth">Author:</label>
-    <input type="text" id="auth" name="author">
+    <label for="ca">Cat Name:</label>
+    <input type="text" id="ca" name="name">
   </div>
 
   <div class="form-group">
-    <label for="quo">Quote:</label>
-    <textarea id="quo" name="quote" rows="8" cols="40"></textarea>
+    <label for="slee">Sleepy?</label><br>
+    <input type="radio" name="sleepy" value="1" checked> Sleepy!<br>
+    <input type="radio" name="sleepy" value="0"> Awake
   </div>
 
-  <button type="submit">Add Quote</button>
+  <button type="submit">Add Cat</button>
 </form>
